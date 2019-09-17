@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>Bildchen...</title>
+<hta:application
+ id=hta
+ applicationname="bildchen"
+ scroll="no"
+ innerborder="no"
+ maximizebutton="no"
+ minimizebutton="no"
+ />
+</head>
+<body bgcolor="1b5790">
+<script type ="text/vbscript">
+
+
+'Fenster Grösse/Position
+b = 350
+h = 120
+window.resizeTo b,h
+window.moveTo screen.width/2-b/2 , screen.height/2-h/2
+
+m = 1000000
+e = 0
+
+
+	Function Zufall() 
+	Randomize
+	if RND > 0.5 THEN
+		z = 1
+	else
+		z = 0
+	End if
+		
+	Select Case z
+		Case 0
+			Zufall = "Rot"
+		Case 1
+			Zufall = "Schwarz"
+	end select
+end Function
+
+
+sub risiko( gewinn )
+do
+MsgBox("Versuche dein Glück im Risiko!")
+o = Inputbox ("Wählen Sie zwischen Rot und Schwarz!","RISIKO", "Rot oder Schwarz")
+
+if o = Zufall() Then
+	gewinn = gewinn * 2
+	MsgBox("Gewinn verdoppelt " & gewinn)
+	f=100
+else
+	MsgBox("War wohl nix. Alles verloren.")
+	gewinn = 0
+	f=2
+end if
+loop until f=2
+	m=G+m
+end sub
+
+x = MsgBox("Herzlich Willkommen zu CasinoRoyal!" & vbCrLf & "Ihr aktuelles Geld: 1000000 $",1+48,"Virtual Casino")
+
+e = inputbox ("Geben Sie Ihren Einsatz ein.", "Eingabebox", "Hier können Sie Ihren Einsatz wählen.")
+f = CInt(e)
+If x=1 then
+	Do
+	
+		y = MsgBox("'OK' drücken, um zu drehen" & vbCrLf & "Kostet "& e &"$",1+64,"Money:" & m & "$")
+		If y = 1 then
+			m = m-e
+			Randomize
+			a = Int((RND*9)+1)
+			b = Int((RND*9)+1)
+			c = Int((RND*9)+1)
+			d = Int((RND*9)+1)
+			MsgBox   a & "|"& b & "|"&  c & "|" & d, 0,"Einarmiger Bandit"
+			
+			
+			
+			If a = b AND b = c AND c = d then
+				G = (e*12)
+				MsgBox "Gratuliere! +"& G &"$!" & vbCrLf & m & "$"
+				v = MsgBox("Nochmal oder Risiko?",3)
+				If v = 6 then
+					f = 100
+					m= G + m
+				elseif v = 2 then
+					risiko(G)	
+				else
+					f = 100
+				end if
+						
+						
+			elseif a = b AND b = c AND c <> d Then 
+				G = (e*6)
+				m = G + m 
+				MsgBox "Gratuliere! +"& G &"$!" & vbCrLf & m & "$"
+				v = MsgBox("Nochmal oder Risiko?",3)
+				If v = 6 then
+					f = 100
+					m= G + m	
+				elseif v = 2 then
+					risiko(G)	
+					m= G + m	
+				else
+					f = 100
+				end if
+					
+			elseif a = b and c <> b then 
+				G = (e*3)
+				m = G + m 
+				MsgBox "Gratuliere! +"& G &"$!" & vbCrLf & m & "$"
+				v = MsgBox("Nochmal oder Risiko",3)
+				If v = 6 then
+					f = 100
+					m= G + m	
+				elseif v = 2 then
+					risiko(G)
+					m= G + m	
+				else
+					f = 100
+
+				end if
+			
+				
+			else
+					g = MsgBox("Leider nicht! :-(" & vbCrLf & "Nochmal?" & vbCrLf & m & "$",4)
+					If g = 6 then
+					If m=0 then
+						MsgBox "Du hast leider kein Geld mehr!!"
+						f = 1
+					else
+						f = 100
+					end if
+					else
+					f = 1
+					end if
+				
+					end if
+		else
+			f = 1
+		end if
+	loop until f=1
+else
+	f = 1
+end if 
+</script>
+
+
+<img src="http://www.domain.tld/images/default/main/datei.gif" />
+</body>
+</html>
